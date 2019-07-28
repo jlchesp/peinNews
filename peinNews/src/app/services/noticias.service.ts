@@ -15,6 +15,8 @@ const headers = new HttpHeaders({
 })
 export class NoticiasService {
 
+  headlinesPage = 0;
+
   constructor( private http: HttpClient ) { }
 
   // SERVICIO PARA MONTAR LA PETICIÓN A LA API
@@ -27,7 +29,10 @@ export class NoticiasService {
 
   // SERVICIO PARA LLAMAR EL TOP HEADLINES
   getTopHeadlines() {
-    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=co`);
+
+    this.headlinesPage ++;
+
+    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=co&page=${ this.headlinesPage }`);
   }
 
   getTopHeadlinesCategory( categoria: string) {
